@@ -67,12 +67,7 @@
             $xml = preg_replace($opening_pattern, "<", $xml);
             $xml = preg_replace($closing_pattern, "</", $xml);
             
-            //echo htmlspecialchars($xml);
-            
             $data = simplexml_load_string($xml) or die("Error: Cannot create object");
-            
-            //echo ($data->channel->item[10]->content[0]["url"]);
-            //echo json_encode($data->channel->item[30]->content["url"]);
             
             return $data;
         }
@@ -146,7 +141,7 @@
         
         public function getEventHtml($event){
             $html = '';
-            $html .= '<!-- BEGIN Event ' . $event->title . '-->';
+            $html .= '<!-- BEGIN Event ' . $event->title . ' -->';
             $html .= '<div class="event" style="padding-bottom:10px;">';
                 
                 if (sizeof($event->pic_url) == 0){}
@@ -159,15 +154,15 @@
                 $html .= '<h3>' . $event->title . '</h3>';
                 
                 if (sizeof($event->time_start) > 0 && sizeof($event->location) > 0){
-                    $html .= '<h4>' . $event->time_start .' - ' . $event->time_end . '. '. $event->location . '</h4>';
+                    $html .= '<h4>' . $event->time_start .' - ' . $event->time_end . '. '. strtoupper($event->location) . '</h4>';
                 } else if (sizeof($event->time_start) > 0){
                     $html .= '<h4>' . $event->time_start .' - ' . $event->time_end . '</h4>';
                 } else if(sizeof($event->location)){
-                    $html .= '<h4>' . $event->location . '</h4>';
+                    $html .= '<h4>' . strtoupper($event->location) . '</h4>';
                 }
                 
                 if (sizeof($event->organizer) > 0){
-                    $html .= '<h5>HOSTED BY: ' . $event->organizer . '</h5>';    
+                    $html .= '<h5>HOSTED BY: ' . strtoupper($event->organizer) . '</h5>';    
                 }
                 
                 $html .= '<h6><span style="font-size:11px;">' . $event->description . '</span></h6>';
@@ -175,7 +170,7 @@
                 
                 $html .= '</div></div>';
                 
-                $html .= '<!-- END Event ' . $event->title . '-->';
+                $html .= '<!-- END Event ' . $event->title . ' -->';
                 
                 return $html; 
         }
