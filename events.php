@@ -10,6 +10,7 @@
         public $time_end; 
         public $location; 
         public $pic_url;
+        public $organizer;
         
         public function __construct($e){
             $header_date_format = "m/d/Y";
@@ -29,6 +30,7 @@
             $this->time_end =  date($time_format,$end_dt);
             $this->location = trim($e->location);
             $this->pic_url = $e->content[0]["url"];
+            $this->organizer = $e->organizer;
         }
     }
     
@@ -91,6 +93,7 @@
             
             foreach ($this->events as $event){
                 $html .= '<tr>';
+                $html .= "<th>{$event->organizer}</th>";
                 $html .= "<th>{$event->title}</th>";
                 $html .= "<th>{$event->start_date}</th>";
                 $html .= "<th>{$event->time_start}</th>";
@@ -143,12 +146,11 @@
         
         public function getEventHtml($event){
             $html = '';
-            
+            $html .= '<!-- BEGIN Event ' . $event->title . '-->';
             $html .= '<div class="event" style="padding-bottom:10px;">';
                 
-                if (sizeof($event->pic_url) == 0){
-                    
-                }
+                if (sizeof($event->pic_url) == 0){}
+                
                 $html .= '<div class="image" style="display:inline-block;"><img alt="No Image Available" src="'. 
                     $event->pic_url . '"style="width: 100px; height: 100px; border-radius: 50%;\" /></div>';
                 
@@ -164,10 +166,16 @@
                     $html .= '<h4>' . $event->location . '</h4>';
                 }
                 
+                if (sizeof($event->organizer) > 0){
+                    $html .= '<h5>HOSTED BY: ' . $event->organizer . '</h5>';    
+                }
+                
                 $html .= '<h6><span style="font-size:11px;">' . $event->description . '</span></h6>';
                 $html .= '<div class="button-group "><a class="button green" href="' . $event->link . '" rel="nofollow">Learn More</a></div>'; 
                 
                 $html .= '</div></div>';
+                
+                $html .= '<!-- END Event ' . $event->title . '-->';
                 
                 return $html; 
         }
