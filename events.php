@@ -141,7 +141,7 @@
         
         public function getEventHtml($event){
             $html = '';
-            $html .= '<!-- BEGIN Event ' . $event->title . ' -->';
+            $html .= '<!-- BEGIN Event ' . strtoupper($event->title) . ' -->';
             $html .= '<div class="event" style="padding-bottom:10px;">';
                 
                 if (sizeof($event->pic_url) == 0){}
@@ -151,7 +151,7 @@
                 
                 $html .= '<div class="text" style="display:inline-block;vertical-align: top; margin-left: 12px; width: 75%;">';
                 
-                $html .= '<h3>' . $event->title . '</h3>';
+                $html .= '<h3>' . strtoupper($event->title) . '</h3>';
                 
                 if (sizeof($event->time_start) > 0 && sizeof($event->location) > 0){
                     $html .= '<h4>' . $event->time_start .' - ' . $event->time_end . '. '. strtoupper($event->location) . '</h4>';
