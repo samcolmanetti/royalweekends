@@ -14,14 +14,4 @@
     
     $em = new EventManager($start_dt,$end_dt); 
     echo $em->getHtml();
-    
-    /*
-    $tidy_options = array('indent' => 'auto'); // WILL NOT WORK
-    $tidy_options = array('indent' => 2); // equivalent of auto
-      
-    $tidy = new Tidy();
-    $tidy->parseString($em->getHtml(), $tidy_options);
-
-    echo ($tidy); 
-    */
 ?>

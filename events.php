@@ -103,7 +103,7 @@
             return $html; 
         }
         
-        function getHtml(){
+        public function getHtml(){
             usort($this->events, array($this, "cmp"));
             
             if (sizeof($this->events) <= 0) return;
